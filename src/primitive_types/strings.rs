@@ -1,5 +1,5 @@
 /// Silly function to print a greeting message
-pub fn hello(name: &str) -> String {
+fn hello(name: &str) -> String {
     format!("Hello, {name}", name = name)
 }
 
