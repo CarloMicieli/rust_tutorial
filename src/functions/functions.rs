@@ -14,6 +14,16 @@ fn div(a: i32, b: i32) -> Result<i32, DivError> {
     }
 }
 
+/// Computes the n-th fibonacci number (trivial implementation - very slow!!!)
+pub fn fib(n: i32) -> i32 {
+    match n {
+        0 => panic!("n cannot be 0!"),
+        1 => 1,
+        2 => 1,
+        i => fib(i - 1) + fib(i - 2),
+    }
+}
+
 /// A generic implementation for the max function
 fn max<T>(a: T, b: T) -> T
 where
@@ -57,5 +67,12 @@ mod tests {
     fn div_should_return_an_err_result_when_divisor_is_zero() {
         let res = div(84, 0);
         assert_eq!(res, Err(DivError::DividedByZero));
+    }
+
+    #[test]
+    fn fib_should_compute_the_nth_fibonacci_number() {
+        assert_eq!(fib(1), 1);
+        assert_eq!(fib(2), 1);
+        assert_eq!(fib(10), 55);
     }
 }
