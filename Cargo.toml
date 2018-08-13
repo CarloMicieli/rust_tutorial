@@ -1,6 +1,6 @@
 [package]
 name = "rust_tutorial"
 version = "0.1.0"
-authors = ["CarloMicieli <carlo.micieli@gmail.com>"]
+authors = ["CarloMicieli <carlo.micieli@mail.com>"]
 
 [dependencies]
