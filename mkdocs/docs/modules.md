@@ -191,11 +191,11 @@ impl ops::Add for Rational {
 }
 ```
 
-== `Crate`s
+## `Crate`s
 
-Un `Crate` è il nome che una libreria prende in Rust, il loro scopo è permette la condisione di codice tra diversi programmi.
+Un **crate** è il nome che una libreria prende in Rust, il loro scopo è permette la condisione di codice tra diversi programmi.
 
-Per include un `Crate` nel proprio progetto dobbiamo aggiungerlo alle dipendenze nel file `Cargo.toml`: iniziamo aggiungendo `crono`, una libreria rust per la gestione delle date:
+Per include un **crate** nel proprio progetto dobbiamo aggiungerlo alle dipendenze nel file `Cargo.toml`: iniziamo aggiungendo `crono`, una libreria rust per la gestione delle date:
 
 ```toml
 [package]
@@ -225,6 +225,7 @@ Non siamo ancora pronti per usare le funzionalità offerte da questo **crate**: 
 ```rust
 extern crate chrono;
 
+// Definisce il modulo "math"
 pub mod math;
 
 fn main() {
@@ -242,47 +243,58 @@ extern crate chrono;
 use chrono::prelude::*;
 
 fn main() {
+    // ...
+
     let local: DateTime<Local> = Local::now();
     println!("It's {}", local);
 }
 ```
 
+```
+$ cargo run
+    Finished dev [unoptimized + debuginfo] target(s) in 0.02s                                          
+     Running `target/debug/modules`
+One half plus one third is 5/6
+One half plus one third is 42
+It's 2018-09-28 15:10:33.056064583 +02:00
+```
 
+Rust permette anche di definire un alias per il module che viene definito importando il **crate**:
 
+```rust
+extern crate chrono as ch_module;
+use ch_module::prelude::*;
 
+fn main() {
+    let local: DateTime<Local> = Local::now();
+    println!("It's {}", local);
+}
+```
 
+Possiamo anche dichiarare l'uso di un **crate** in un modulo, in questo caso dovremo qualificare il nome del modulo corrispondente:
 
+```rust
+use time_module::chrono::prelude::*;
 
+fn main() {
+    let local: DateTime<Local> = Local::now();
+    println!("It's {}", local);
+}
 
+mod time_module {
+    pub extern crate chrono;
+}
+```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+## `use`
 
 
 
 
 ## Bibliografia
-- https://blog.infinitenegativeutility.com/2017/8/the-basic-principles-of-rust-modules
+- [Rust modules explained](https://medium.com/@tak2siva/rust-modules-explained-96809931bbbf). 2017
+- Steve Donovan. [A Gentle Introduction To Rust: Modules and Cargo](https://stevedonovan.github.io/rust-gentle-intro/4-modules.html#modules-and-cargo). 2017-2018
+- Aaron Turon. [Revisiting Rust’s modules](https://aturon.github.io/blog/2017/07/26/revisiting-rusts-modules/). 2017
+- Sam Pagenkopf. [Rust Module Essentials](https://dev.to/hertz4/rust-module-essentials-12oi). 2017
+- Getty Ritter. [The Basic Principles of Rust Modules](https://blog.infinitenegativeutility.com/2017/8/the-basic-principles-of-rust-modules). 2017
+- Jeff Walker. [Learning Rust Modules] (https://walkercoderanger.com/blog/2015/08/learning-rust-modules/). 2015
