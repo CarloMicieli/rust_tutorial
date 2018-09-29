@@ -12,11 +12,15 @@ pub struct Rational {
 impl Rational {
     pub fn new(num: i32, den: i32) -> Rational {
         assert!(den != 0, "Denominator is zero!");
-        let div = gcd(num.abs(), den.abs());
-        Rational {
-            n: num / div,
-            d: den / div,
-        }
+
+        let (n, d) = Rational::reduce_values(num, den);
+        Rational { n, d }
+    }
+
+    fn reduce_values(a: i32, b: i32) -> (i32, i32) {
+        let sign = if a < 0 || b < 0 { -1 } else { 1 };
+        let div = gcd(a.abs(), b.abs());
+        (sign * (a / div).abs(), (b / div).abs())
     }
 
     pub fn numerator(&self) -> i32 {
@@ -30,6 +34,10 @@ impl Rational {
     /// A new rational number
     pub fn from(num: i32) -> Rational {
         Rational { n: num, d: 1 }
+    }
+
+    pub fn is_positive(&self) -> bool {
+        !Rational::is_negative(self)
     }
 
     pub fn is_negative(&self) -> bool {
@@ -52,9 +60,10 @@ fn gcd(x: i32, y: i32) -> i32 {
 
 impl fmt::Display for Rational {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match self.d {
-            1 => write!(f, "{}", self.n),
-            _ => write!(f, "{}/{}", self.n, self.d),
+        match self {
+            Rational { n, d: 1 } => write!(f, "{}", n),
+            Rational { n, d } if *n < 0 || *d < 0 => write!(f, "-{}/{}", n.abs(), d.abs()),
+            Rational { n, d } => write!(f, "{}/{}", n, d),
         }
     }
 }
@@ -73,6 +82,18 @@ impl cmp::Ord for Rational {
     }
 }
 
+impl ops::Neg for Rational {
+    type Output = Self;
+    fn neg(self) -> Self {
+        let Rational { n: num, d: den } = self;
+        if self.is_positive() {
+            Rational::new(-num, den)
+        } else {
+            Rational::new(num.abs(), den.abs())
+        }
+    }
+}
+
 impl ops::Sub for Rational {
     type Output = Self;
 
@@ -80,6 +101,13 @@ impl ops::Sub for Rational {
         let Rational { n: n1, d: d1 } = self;
         let Rational { n: n2, d: d2 } = other;
         Rational::new((n1 * d2) - (d1 * n2), d1 * d2)
+    }
+}
+
+impl ops::SubAssign for Rational {
+    fn sub_assign(&mut self, other: Self) {
+        use std::ops::Sub;
+        *self = self.sub(other);
     }
 }
 
@@ -118,10 +146,52 @@ impl ops::Add for Rational {
     }
 }
 
+impl ops::AddAssign for Rational {
+    fn add_assign(&mut self, other: Self) {
+        use std::ops::Add;
+        *self = self.add(other);
+    }
+}
+
 #[cfg(test)]
 mod tests {
     // importing names from outer (for mod tests) scope.
     use super::*;
+
+    #[test]
+    fn should_create_rational_numbers_from_whole_numbers() {
+        let five = Rational::from(5);
+        assert_eq!(five.numerator(), 5);
+        assert_eq!(five.denominator(), 1);
+    }
+
+    #[test]
+    fn should_negate_rational_numbers() {
+        let one_half = Rational::new(1, 2);
+        let minus_one_half = Rational::new(-1, -2);
+
+        assert_eq!(-one_half, minus_one_half);
+        assert_eq!(-minus_one_half, one_half);
+    }
+
+    #[test]
+    fn should_display_rational_numbers() {
+        let one_half = Rational::new(1, 2);
+        let one = Rational::from(1);
+        assert_eq!(one_half.to_string(), "1/2");
+        assert_eq!(one.to_string(), "1");
+    }
+
+    #[test]
+    fn should_display_negative_rational_numbers() {
+        let r1 = Rational::new(-1, 2);
+        let r2 = Rational::new(-1, -2);
+        let r3 = Rational::new(1, -2);
+
+        assert_eq!(r1.to_string(), "-1/2");
+        assert_eq!(r2.to_string(), "-1/2");
+        assert_eq!(r3.to_string(), "-1/2");
+    }
 
     #[test]
     fn should_sum_two_rational_numbers() {
@@ -130,6 +200,26 @@ mod tests {
 
         let sum = one_half + one_third;
         assert_eq!(sum, Rational::new(5, 6));
+    }
+
+    #[test]
+    fn should_sum_and_assign_two_rational_numbers() {
+        let one_half = Rational::new(1, 2);
+        let mut r = one_half;
+
+        r += one_half;
+
+        assert_eq!(r, Rational::from(1));
+    }
+
+    #[test]
+    fn should_substract_and_assign_two_rational_numbers() {
+        let one_half = Rational::new(1, 2);
+        let mut r = Rational::from(1);
+
+        r -= one_half;
+
+        assert_eq!(r, one_half);
     }
 
     #[test]

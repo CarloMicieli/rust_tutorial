@@ -10,12 +10,13 @@ $ cargo new modules
 ```
 
 ```
-$ tree
+$ tree .
 .
-├── Cargo.lock
 ├── Cargo.toml
-├── src
-│   └── main.rs
+└── src
+    └── main.rs
+
+1 directory, 2 files
 ```
 
 in questo momento tutti gli elementi del programma si trovano nel file `main.rs`:
@@ -48,13 +49,13 @@ impl Rational {
 
 ```
 $ cargo run
-   Compiling modules v0.1.0 (file:///home/carlo/Projects/rust/modules)                                 
+   Compiling modules v0.1.0 (file:///home/carlo/Projects/rust/modules)
     Finished dev [unoptimized + debuginfo] target(s) in 0.40s
      Running `target/debug/modules`
 One half, or 1/2
 ```
 
-Moduli in Rust possono contenere: _function_, _tipi_, _valori_. Di default gli elementi in Rust sono *privati*: possono essere resi pubblici (e visibili da altri moduli) usando la parola chiave `pub`.
+Moduli in Rust possono contenere: _function_, _tipi_, _valori_. Di default gli elementi in Rust sono _privati_: possono essere resi pubblici (e visibili da altri moduli) usando la parola chiave `pub`.
 
 Una unità di compilazione in Rust si chiama **Crate** e include un modulo _root_, per le librerie è contenuto nel file `lib.rs` per gli eseguibili `main.rs`.
 
@@ -88,21 +89,19 @@ mod math {
 
 > Name lookup in expressions is relative to the module in which the expression appears unless the name is fully qualified.
 
-
 Nome _qualified_:
 
 - `::` root
 - `super::`: parent module
 - `self::` current module
 
-
 Ci sono tre modi per dichiarare un modulo `math`:
+
 - con un blocco `pub mod math {}` definito nel modulo _root_ (`main.rs` o `lib.rs` a seconda del tipo di progetto);
 - in un file `./math.rs`
 - in un file `./math/mod.rs`
 
-
-- Opzione 1
+* Opzione 1
 
 ```
 $ tree
@@ -114,7 +113,7 @@ $ tree
     └── math.rs
 ```
 
- - Opzione 2
+- Opzione 2
 
 ```
 $ tree
@@ -211,7 +210,7 @@ chrono = "0.4"
 $ cargo build
     Blocking waiting for file lock on the registry index
     Updating registry `https://github.com/rust-lang/crates.io-index`
-   Compiling num-traits v0.2.6                                                                         
+   Compiling num-traits v0.2.6
    Compiling num-integer v0.1.39
    Compiling libc v0.2.43
    Compiling time v0.1.40
@@ -236,7 +235,7 @@ fn main() {
 }
 ```
 
-Con `extern crate chrono` abbiamo ottenuto due risultati allo stesso tempo: incluso il *crate* `chrono` nel programma e importato il modulo nel modulo corrente.
+Con `extern crate chrono` abbiamo ottenuto due risultati allo stesso tempo: incluso il _crate_ `chrono` nel programma e importato il modulo nel modulo corrente.
 
 ```rust
 extern crate chrono;
@@ -252,7 +251,7 @@ fn main() {
 
 ```
 $ cargo run
-    Finished dev [unoptimized + debuginfo] target(s) in 0.02s                                          
+    Finished dev [unoptimized + debuginfo] target(s) in 0.02s
      Running `target/debug/modules`
 One half plus one third is 5/6
 One half plus one third is 42
@@ -288,13 +287,11 @@ mod time_module {
 
 ## `use`
 
-
-
-
 ## Bibliografia
+
 - [Rust modules explained](https://medium.com/@tak2siva/rust-modules-explained-96809931bbbf). 2017
 - Steve Donovan. [A Gentle Introduction To Rust: Modules and Cargo](https://stevedonovan.github.io/rust-gentle-intro/4-modules.html#modules-and-cargo). 2017-2018
 - Aaron Turon. [Revisiting Rust’s modules](https://aturon.github.io/blog/2017/07/26/revisiting-rusts-modules/). 2017
 - Sam Pagenkopf. [Rust Module Essentials](https://dev.to/hertz4/rust-module-essentials-12oi). 2017
 - Getty Ritter. [The Basic Principles of Rust Modules](https://blog.infinitenegativeutility.com/2017/8/the-basic-principles-of-rust-modules). 2017
-- Jeff Walker. [Learning Rust Modules] (https://walkercoderanger.com/blog/2015/08/learning-rust-modules/). 2015
+- Jeff Walker. [Learning Rust Modules](https://walkercoderanger.com/blog/2015/08/learning-rust-modules/). 2015
