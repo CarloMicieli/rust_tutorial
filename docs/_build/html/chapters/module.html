@@ -1,0 +1,548 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="it" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="it" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>} &mdash; Rust Tutorial  documentazione</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Indice" href="../genindex.html" />
+    <link rel="search" title="Cerca" href="../search.html" />
+    <link rel="next" title="}" href="enums.html" />
+    <link rel="prev" title="Rust Tutorial" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Rust Tutorial
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">}</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id28">}</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id45">}</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id50">}</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id71">}</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id78">}</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id91">}</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id98">}</a></li>
+<li class="toctree-l1"><a class="reference internal" href="enums.html">}</a></li>
+<li class="toctree-l1"><a class="reference internal" href="enums.html#id12">}</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Rust Tutorial</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>}</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/chapters/module.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <p># Moduli e Crates</p>
+<p>_Moduli_ sono da sempre stati usati per organizzare le varie componenti di una programma. L’approccio di Rust sull’argomento è a dir poco singolare.</p>
+<p>Dopo aver creato un nuovo progetto con <strong>Cargo</strong> siamo pronti a partire:</p>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a>`
+$ cargo new modules</p>
+<blockquote>
+<div>Created binary (application) <cite>modules</cite> project</div></blockquote>
+<p><a href="#id3"><span class="problematic" id="id4">``</span></a><a href="#id5"><span class="problematic" id="id6">`</span></a></p>
+<p><a href="#id7"><span class="problematic" id="id8">``</span></a>`
+$ tree .
+.
+├── Cargo.toml
+└── src</p>
+<blockquote>
+<div>└── main.rs</div></blockquote>
+<p>1 directory, 2 files
+<a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a></p>
+<p>in questo momento tutti gli elementi del programma si trovano nel file <cite>main.rs</cite>:</p>
+<p><a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a>rust
+use std::fmt;</p>
+<dl class="docutils">
+<dt>fn main() {</dt>
+<dd>let one_half = Rational::new(1, 2);
+println!(«One half, or {}», one_half);</dd>
+</dl>
+<p>}</p>
+<dl class="docutils">
+<dt>struct Rational {</dt>
+<dd>n: i32,
+d: i32,</dd>
+</dl>
+<p>}</p>
+<dl class="docutils">
+<dt>impl fmt::Display for Rational {</dt>
+<dd><dl class="first docutils">
+<dt>fn fmt(&amp;self, f: &amp;mut fmt::Formatter) -&gt; fmt::Result {</dt>
+<dd>write!(f, «{}/{}», self.n, self.d)</dd>
+</dl>
+<p class="last">}</p>
+</dd>
+</dl>
+<p>}</p>
+<dl class="docutils">
+<dt>impl Rational {</dt>
+<dd><dl class="first docutils">
+<dt>fn new(n: i32, d: i32) -&gt; Rational {</dt>
+<dd>Rational { n, d }</dd>
+</dl>
+<p class="last">}</p>
+</dd>
+</dl>
+<div class="section" id="id17">
+<h1>}<a class="headerlink" href="#id17" title="Link a questa intestazione">¶</a></h1>
+<p><a href="#id18"><span class="problematic" id="id19">``</span></a>`
+$ cargo run</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Compiling modules v0.1.0 (<a class="reference external" href="file:///home/carlo/Projects/rust/modules">file:///home/carlo/Projects/rust/modules</a>)</dt>
+<dd><dl class="first last docutils">
+<dt>Finished dev [unoptimized + debuginfo] target(s) in 0.40s</dt>
+<dd>Running <cite>target/debug/modules</cite></dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+<p>One half, or 1/2
+<a href="#id20"><span class="problematic" id="id21">``</span></a><a href="#id22"><span class="problematic" id="id23">`</span></a></p>
+<p>Moduli in Rust possono contenere: _function_, _tipi_, _valori_. Di default gli elementi in Rust sono _privati_: possono essere resi pubblici (e visibili da altri moduli) usando la parola chiave <cite>pub</cite>.</p>
+<p>Una unità di compilazione in Rust si chiama <strong>Crate</strong> e include un modulo _root_, per le librerie è contenuto nel file <cite>lib.rs</cite> per gli eseguibili <cite>main.rs</cite>.</p>
+<p><a href="#id24"><span class="problematic" id="id25">``</span></a><a href="#id26"><span class="problematic" id="id27">`</span></a>rust
+fn main() {</p>
+<blockquote>
+<div>let one_half = math::Rational::new(1, 2);
+println!(«One half, or {}», one_half);</div></blockquote>
+<p>}</p>
+<dl class="docutils">
+<dt>mod math {</dt>
+<dd><p class="first">use std::fmt;</p>
+<dl class="docutils">
+<dt>pub struct Rational {</dt>
+<dd>n: i32,
+d: i32,</dd>
+</dl>
+<p>}</p>
+<dl class="docutils">
+<dt>impl fmt::Display for Rational {</dt>
+<dd><dl class="first docutils">
+<dt>fn fmt(&amp;self, f: &amp;mut fmt::Formatter) -&gt; fmt::Result {</dt>
+<dd>write!(f, «{}/{}», self.n, self.d)</dd>
+</dl>
+<p class="last">}</p>
+</dd>
+</dl>
+<p>}</p>
+<dl class="docutils">
+<dt>impl Rational {</dt>
+<dd><dl class="first docutils">
+<dt>pub fn new(n: i32, d: i32) -&gt; Rational {</dt>
+<dd>Rational { n, d }</dd>
+</dl>
+<p class="last">}</p>
+</dd>
+</dl>
+<p class="last">}</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id28">
+<h1>}<a class="headerlink" href="#id28" title="Link a questa intestazione">¶</a></h1>
+<p>&gt; Name lookup in expressions is relative to the module in which the expression appears unless the name is fully qualified.</p>
+<p>Nome _qualified_:</p>
+<ul class="simple">
+<li><cite>::</cite> root</li>
+<li><cite>super::</cite>: parent module</li>
+<li><cite>self::</cite> current module</li>
+</ul>
+<p>Ci sono tre modi per dichiarare un modulo <cite>math</cite>:</p>
+<ul class="simple">
+<li>con un blocco <cite>pub mod math {}</cite> definito nel modulo _root_ (<cite>main.rs</cite> o <cite>lib.rs</cite> a seconda del tipo di progetto);</li>
+<li>in un file <cite>./math.rs</cite></li>
+<li>in un file <cite>./math/mod.rs</cite></li>
+</ul>
+<ul class="simple">
+<li>Opzione 1</li>
+</ul>
+<p><a href="#id29"><span class="problematic" id="id30">``</span></a>`
+$ tree
+.
+├── Cargo.lock
+├── Cargo.toml
+├── src</p>
+<blockquote>
+<div>├── main.rs
+└── math.rs</div></blockquote>
+<p><a href="#id31"><span class="problematic" id="id32">``</span></a><a href="#id33"><span class="problematic" id="id34">`</span></a></p>
+<ul class="simple">
+<li>Opzione 2</li>
+</ul>
+<p><a href="#id35"><span class="problematic" id="id36">``</span></a>`
+$ tree
+.
+├── Cargo.lock
+├── Cargo.toml
+├── src</p>
+<blockquote>
+<div><p>├── main.rs
+└── math</p>
+<blockquote>
+<div>└── mod.rs</div></blockquote>
+</div></blockquote>
+<p><a href="#id37"><span class="problematic" id="id38">``</span></a><a href="#id39"><span class="problematic" id="id40">`</span></a></p>
+<p>Nel modulo _root_ è obbligatorio definire i moduli usati:</p>
+<p><a href="#id41"><span class="problematic" id="id42">``</span></a><a href="#id43"><span class="problematic" id="id44">`</span></a>rust
+pub mod math;</p>
+<dl class="docutils">
+<dt>fn main() {</dt>
+<dd>let one_half = math::Rational::new(1, 2);
+let one_third = math::Rational::new(1, 3);
+println!(«One half plus one third is {}», one_half + one_third);
+println!(«One half plus one third is {}», math::to_rational(42));</dd>
+</dl>
+</div>
+<div class="section" id="id45">
+<h1>}<a class="headerlink" href="#id45" title="Link a questa intestazione">¶</a></h1>
+<p>il contenuto di <cite>math/mod.rs</cite> e <cite>math.rs</cite> è identico:</p>
+<p><a href="#id46"><span class="problematic" id="id47">``</span></a><a href="#id48"><span class="problematic" id="id49">`</span></a>rust
+use std::fmt;
+use std::ops;</p>
+<p>/// Una semplice funzione
+pub fn to_rational(n: i32) -&gt; Rational {</p>
+<blockquote>
+<div>Rational::from_int(n)</div></blockquote>
+<p>}</p>
+<p>/// Rappresenta una frazione
+#[derive(Clone, Copy, Debug)]
+pub struct Rational {</p>
+<blockquote>
+<div>n: i32,
+d: i32,</div></blockquote>
+<p>}</p>
+<dl class="docutils">
+<dt>impl fmt::Display for Rational {</dt>
+<dd><dl class="first docutils">
+<dt>fn fmt(&amp;self, f: &amp;mut fmt::Formatter) -&gt; fmt::Result {</dt>
+<dd><dl class="first docutils">
+<dt>match self {</dt>
+<dd>Rational { n, d: 1 } =&gt; write!(f, «{}», n),
+Rational { n, d } =&gt; write!(f, «{}/{}», n, d),</dd>
+</dl>
+<p class="last">}</p>
+</dd>
+</dl>
+<p class="last">}</p>
+</dd>
+</dl>
+<p>}</p>
+<dl class="docutils">
+<dt>impl Rational {</dt>
+<dd><dl class="first docutils">
+<dt>pub fn new(n: i32, d: i32) -&gt; Rational {</dt>
+<dd>Rational { n, d }</dd>
+</dl>
+<p>}</p>
+<dl class="docutils">
+<dt>fn from_int(n: i32) -&gt; Rational {</dt>
+<dd>Rational::new(n, 1)</dd>
+</dl>
+<p class="last">}</p>
+</dd>
+</dl>
+<p>}</p>
+<dl class="docutils">
+<dt>impl ops::Add for Rational {</dt>
+<dd><p class="first">type Output = Rational;</p>
+<dl class="docutils">
+<dt>fn add(self, other: Rational) -&gt; Rational {</dt>
+<dd><p class="first">let Rational { n: n1, d: d1 } = self;
+let Rational { n: n2, d: d2 } = other;
+Rational {</p>
+<blockquote>
+<div>n: (n1 * d2) + (d1 * n2),
+d: d1 * d2,</div></blockquote>
+<p class="last">}</p>
+</dd>
+</dl>
+<p class="last">}</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id50">
+<h1>}<a class="headerlink" href="#id50" title="Link a questa intestazione">¶</a></h1>
+<p>## <a href="#id51"><span class="problematic" id="id52">`</span></a>Crate`s</p>
+<p>Un <strong>crate</strong> è il nome che una libreria prende in Rust, il loro scopo è permette la condisione di codice tra diversi programmi.</p>
+<p>Per include un <strong>crate</strong> nel proprio progetto dobbiamo aggiungerlo alle dipendenze nel file <cite>Cargo.toml</cite>: iniziamo aggiungendo <cite>crono</cite>, una libreria rust per la gestione delle date:</p>
+<p><a href="#id53"><span class="problematic" id="id54">``</span></a><a href="#id55"><span class="problematic" id="id56">`</span></a>toml
+[package]
+name = «modules»
+version = «0.1.0»
+authors = [«CarloMicieli &lt;<a class="reference external" href="mailto:carlo&#46;micieli&#37;&#52;&#48;gmail&#46;com">carlo<span>&#46;</span>micieli<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;»]</p>
+<p>[dependencies]
+chrono = «0.4»
+<a href="#id57"><span class="problematic" id="id58">``</span></a><a href="#id59"><span class="problematic" id="id60">`</span></a></p>
+<p><a href="#id61"><span class="problematic" id="id62">``</span></a>`
+$ cargo build</p>
+<blockquote>
+<div><blockquote>
+<div>Blocking waiting for file lock on the registry index
+Updating registry <cite>https://github.com/rust-lang/crates.io-index</cite></div></blockquote>
+<p>Compiling num-traits v0.2.6
+Compiling num-integer v0.1.39
+Compiling libc v0.2.43
+Compiling time v0.1.40
+Compiling chrono v0.4.6
+Compiling modules v0.1.0 (<a class="reference external" href="file:///home/carlo/Projects/rust/modules">file:///home/carlo/Projects/rust/modules</a>)</p>
+<blockquote>
+<div>Finished dev [unoptimized + debuginfo] target(s) in 8.40s</div></blockquote>
+</div></blockquote>
+<p><a href="#id63"><span class="problematic" id="id64">``</span></a><a href="#id65"><span class="problematic" id="id66">`</span></a></p>
+<p>Non siamo ancora pronti per usare le funzionalità offerte da questo <strong>crate</strong>: dobbiamo importarlo nel modulo _root_, nel nostro caso <cite>main.rs</cite>:</p>
+<p><a href="#id67"><span class="problematic" id="id68">``</span></a><a href="#id69"><span class="problematic" id="id70">`</span></a>rust
+extern crate chrono;</p>
+<p>// Definisce il modulo «math»
+pub mod math;</p>
+<dl class="docutils">
+<dt>fn main() {</dt>
+<dd>let one_half = math::Rational::new(1, 2);
+let one_third = math::Rational::new(1, 3);
+println!(«One half plus one third is {}», one_half + one_third);
+println!(«One half plus one third is {}», math::to_rational(42));</dd>
+</dl>
+</div>
+<div class="section" id="id71">
+<h1>}<a class="headerlink" href="#id71" title="Link a questa intestazione">¶</a></h1>
+<p>Con <cite>extern crate chrono</cite> abbiamo ottenuto due risultati allo stesso tempo: incluso il _crate_ <cite>chrono</cite> nel programma e importato il modulo nel modulo corrente.</p>
+<p><a href="#id72"><span class="problematic" id="id73">``</span></a><a href="#id74"><span class="problematic" id="id75">`</span></a>rust
+extern crate chrono;
+use chrono::prelude::<a href="#id76"><span class="problematic" id="id77">*</span></a>;</p>
+<dl class="docutils">
+<dt>fn main() {</dt>
+<dd><p class="first">// …</p>
+<p class="last">let local: DateTime&lt;Local&gt; = Local::now();
+println!(«It’s {}», local);</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id78">
+<h1>}<a class="headerlink" href="#id78" title="Link a questa intestazione">¶</a></h1>
+<p><a href="#id79"><span class="problematic" id="id80">``</span></a>`
+$ cargo run</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Finished dev [unoptimized + debuginfo] target(s) in 0.02s</dt>
+<dd>Running <cite>target/debug/modules</cite></dd>
+</dl>
+</div></blockquote>
+<p>One half plus one third is 5/6
+One half plus one third is 42
+It’s 2018-09-28 15:10:33.056064583 +02:00
+<a href="#id81"><span class="problematic" id="id82">``</span></a><a href="#id83"><span class="problematic" id="id84">`</span></a></p>
+<p>Rust permette anche di definire un alias per il module che viene definito importando il <strong>crate</strong>:</p>
+<p><a href="#id85"><span class="problematic" id="id86">``</span></a><a href="#id87"><span class="problematic" id="id88">`</span></a>rust
+extern crate chrono as ch_module;
+use ch_module::prelude::<a href="#id89"><span class="problematic" id="id90">*</span></a>;</p>
+<dl class="docutils">
+<dt>fn main() {</dt>
+<dd>let local: DateTime&lt;Local&gt; = Local::now();
+println!(«It’s {}», local);</dd>
+</dl>
+</div>
+<div class="section" id="id91">
+<h1>}<a class="headerlink" href="#id91" title="Link a questa intestazione">¶</a></h1>
+<p>Possiamo anche dichiarare l’uso di un <strong>crate</strong> in un modulo, in questo caso dovremo qualificare il nome del modulo corrispondente:</p>
+<p><a href="#id92"><span class="problematic" id="id93">``</span></a><a href="#id94"><span class="problematic" id="id95">`</span></a>rust
+use time_module::chrono::prelude::<a href="#id96"><span class="problematic" id="id97">*</span></a>;</p>
+<dl class="docutils">
+<dt>fn main() {</dt>
+<dd>let local: DateTime&lt;Local&gt; = Local::now();
+println!(«It’s {}», local);</dd>
+</dl>
+<p>}</p>
+<dl class="docutils">
+<dt>mod time_module {</dt>
+<dd>pub extern crate chrono;</dd>
+</dl>
+</div>
+<div class="section" id="id98">
+<h1>}<a class="headerlink" href="#id98" title="Link a questa intestazione">¶</a></h1>
+<p>## <cite>use</cite></p>
+<p>## Bibliografia</p>
+<ul class="simple">
+<li>[Rust modules explained](<a class="reference external" href="https://medium.com/&#64;tak2siva/rust-modules-explained-96809931bbbf">https://medium.com/&#64;tak2siva/rust-modules-explained-96809931bbbf</a>). 2017</li>
+<li>Steve Donovan. [A Gentle Introduction To Rust: Modules and Cargo](<a class="reference external" href="https://stevedonovan.github.io/rust-gentle-intro/4-modules.html#modules-and-cargo">https://stevedonovan.github.io/rust-gentle-intro/4-modules.html#modules-and-cargo</a>). 2017-2018</li>
+<li>Aaron Turon. [Revisiting Rust’s modules](<a class="reference external" href="https://aturon.github.io/blog/2017/07/26/revisiting-rusts-modules/">https://aturon.github.io/blog/2017/07/26/revisiting-rusts-modules/</a>). 2017</li>
+<li>Sam Pagenkopf. [Rust Module Essentials](<a class="reference external" href="https://dev.to/hertz4/rust-module-essentials-12oi">https://dev.to/hertz4/rust-module-essentials-12oi</a>). 2017</li>
+<li>Getty Ritter. [The Basic Principles of Rust Modules](<a class="reference external" href="https://blog.infinitenegativeutility.com/2017/8/the-basic-principles-of-rust-modules">https://blog.infinitenegativeutility.com/2017/8/the-basic-principles-of-rust-modules</a>). 2017</li>
+<li>Jeff Walker. [Learning Rust Modules](<a class="reference external" href="https://walkercoderanger.com/blog/2015/08/learning-rust-modules/">https://walkercoderanger.com/blog/2015/08/learning-rust-modules/</a>). 2015</li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="enums.html" class="btn btn-neutral float-right" title="}" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral float-left" title="Rust Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Carlo Micieli
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
